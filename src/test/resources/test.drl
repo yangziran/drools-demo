@@ -1,0 +1,53 @@
+package test
+
+import java.util.Map
+
+global java.util.HashMap globalResult
+
+rule "zero"
+    no-loop true
+    lock-on-active true
+	salience 1
+	when
+		$map:Map(amout <= 100)
+	then
+	    $map.put("score", 0);
+	    update($map);
+		globalResult.put("score", 0);
+end
+
+rule "add100"
+    no-loop true
+    lock-on-active true
+	salience 2
+	when
+		$map:Map(amout > 100 && amout <= 500)
+	then
+	    $map.put("score", 100);
+    	update($map);
+		globalResult.put("score", 100);
+end
+
+rule "add500"
+    no-loop true
+    lock-on-active true
+	salience 3
+	when
+		$map:Map(amout > "500" && amout <= "1000")
+	then
+	    $map.put("score", 500);
+	    update($map);
+		globalResult.put("score", 500);
+end
+
+rule "add1000"
+    no-loop true
+    lock-on-active true
+	salience 4
+	when
+		$map:Map(amout > "1000")
+	then
+	    $map.put("score", 500);
+	    update($map);
+		globalResult.put("score", 1000);
+end
