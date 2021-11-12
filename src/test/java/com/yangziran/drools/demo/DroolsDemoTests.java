@@ -26,7 +26,7 @@ class DroolsDemoTests {
     @Test
     void contextLoads() throws IOException {
 
-        Resource resource = ResourceFactory.newClassPathResource("test.drl");
+        Resource resource = ResourceFactory.newClassPathResource("DroolsDemo.drl");
         assertNotNull(resource);
         log.info("{}", resource.getSourcePath());
 
@@ -37,6 +37,10 @@ class DroolsDemoTests {
         KnowledgeBuilder kBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
         kBuilder.add(resource, ResourceType.DRL);
         assertNotNull(kBuilder);
+        if (kBuilder.hasErrors()) {
+            log.error("{}", kBuilder.getErrors());
+        }
+
         InternalKnowledgeBase knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase();
         knowledgeBase.addPackages(kBuilder.getKnowledgePackages());
         assertNotNull(knowledgeBase);

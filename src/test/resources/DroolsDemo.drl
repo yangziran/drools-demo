@@ -47,7 +47,7 @@ rule "add1000"
 	when
 		$map:Map(amout > "1000")
 	then
-	    $map.put("score", 500);
+	    $map.put("score", 1000);
 	    update($map);
 		globalResult.put("score", 1000);
 end
